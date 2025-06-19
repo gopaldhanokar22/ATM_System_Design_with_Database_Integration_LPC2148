@@ -48,71 +48,96 @@ Create the Baisc Modules files:
       - uart.c, uart.h (UART communication)
       - keypad.c, keypad.h (keypad input)
 
-2.	Testing Individual Modules:\ 
+2.	Testing Individual Modules:\
 Before integration, test each module separately:
      - LCD Test: Display characters and strings
      - Keypad Test: Read and display input values
      - UART Test: Send/receive test strings using UART0 and UART1
      - RFID Test: Read card data via UART1 and display on LCD
 
-3.	Main Program Flow (main.c)
+4.	Main Program Flow (main.c)
 1.	Initialization:
-o	Initialize all hardware modules (LCD, UART, keypad, RFID)
-o	Display project title briefly on LCD
+      - Initialize all hardware modules (LCD, UART, keypad, RFID)
+      - Display project title briefly on LCD
 2.	RFID Authentication:
-o	Continuously wait for RFID card
-o	When card is detected, read the 10-byte frame (starts with 0x02, ends with 0x03)
-o	Extract the 8-byte card number (middle bytes)
-o	Send to PC in format: #CARD:12345678$
+    - Continuously wait for RFID card
+    - When card is detected, read the 10-byte frame (starts with 0x02, ends with 0x03)
+    - Extract the 8-byte card number (middle bytes)
+    - Send to PC in format: #CARD:12345678$
 3.	PIN Verification:
-o	If PC responds with @OK#VALID_CARDS, display "Enter PIN"
-o	Read 4-digit PIN from keypad
-o	Send to PC in format: #CARD:12345678#PIN:4321$
-o	Wait for validation response
+       - If PC responds with @OK#VALID_CARDS, display "Enter PIN"
+       - Read 4-digit PIN from keypad
+       - Send to PC in format: #CARD:12345678#PIN:4321$
+       - Wait for validation response
 4.	Main Menu:
-o	On successful login, display menu options:
-1.	BALANCE
-2.	DEPOSIT
-3.	WITHDRAW
-4.	PIN CHANGE
-5.	MINI STATEMENT
-6.	EXIT
-o	Implement 30-second timeout using timer interrupts
+       - On successful login, display menu options:
+         1.	BALANCE
+         2.	DEPOSIT
+         3.	WITHDRAW
+         4.	PIN CHANGE
+         5.	MINI STATEMENT
+         6.	EXIT
+      - Implement 30-second timeout using timer interrupts
 5.	Transaction Handling:
-o	For each menu option, send appropriate request to PC and handle response
+      - For each menu option, send appropriate request to PC and handle response
 
-PC-SIDE DATABASE IMPLEMENTATION 
+__PC-SIDE DATABASE IMPLEMENTATION__ 
 Main Program Flow
 1.	Initialization:
-o	Load user data from users.txt into an array/list
-o	Load transaction history from transactions.txt into a linked list
-o	Initialize UART communication with MCU
+      - Load user data from users.txt into an array/list
+      - Load transaction history from transactions.txt into a linked list
+      - Initialize UART communication with MCU
 2.	RFID Validation:
-o	Wait for #CARD:12345678$
-o	Search user list for matching RFID
-o	Respond with @OK#VALID_CARDS or @ERR#INVALID_CARDS
+      - Wait for #CARD:12345678$
+      - Search user list for matching RFID
+      - Respond with @OK#VALID_CARDS or @ERR#INVALID_CARDS
 3.	PIN Validation:
-o	Wait for #CARD:12345678#PIN:4321$
-o	Verify PIN matches stored PIN for that RFID
-o	Respond with @OK#LOGIN_SUCCESS or @ERR#INVALID_PINS
+      - Wait for #CARD:12345678#PIN:4321$
+      - Verify PIN matches stored PIN for that RFID
+      - Respond with @OK#LOGIN_SUCCESS or @ERR#INVALID_PINS
 4.	Transaction Handling:
-o	Balance Enquiry (#TXN:BALANCE#REQS):
-	Fetch and return balance: @OK#BALANCE:XXXX.XX$
-o	Deposit (#TXN:DEPOSIT#AMOUNT:1000$):
-	Add amount to balance
-	Log transaction
-	Return new balance
-o	Withdrawal (#TXN:WITHDRAW#AMOUNT:500$):
-	Check sufficient balance
-	Deduct amount if available
-	Log transaction
-	Return new balance or error
-o	PIN Change (#PINCHANGE#NEWPINS):
-	Update PIN in user structure
-	Save to file
-o	Mini Statement (#MINISTMT#REQS):
-	Find last 3 transactions for user
-	Format as: @OK#MINISTMT:TXN1|TXN2|TXN3$
-5.	File Handling:
-o	After each transaction that modifies data, update the text files
-o	Implement proper file locking to prevent corruption
+      - Balance Enquiry (#TXN:BALANCE#REQS):\
+            - Fetch and return balance: @OK#BALANCE:XXXX.XX$
+      - Deposit (#TXN:DEPOSIT#AMOUNT:1000$):\
+            - Add amount to balance\
+            - Log transaction\
+            - Return new balance
+      - Withdrawal (#TXN:WITHDRAW#AMOUNT:500$):\
+            - Check sufficient balance\
+            - Deduct amount if available\
+            - Log transaction\
+            - Return new balance or error
+      - PIN Change (#PINCHANGE#NEWPINS):\
+            - Update PIN in user structure\
+            - Save to file
+      - Mini Statement (#MINISTMT#REQS):\
+            - Find last 3 transactions for user\
+            - Format as: @OK#MINISTMT:TXN1|TXN2|TXN3$
+5.	File Handling:\
+      - After each transaction that modifies data, update the text files\
+      - Implement proper file locking to prevent corruption
+
+  __ATM Communication Protocol: MCU ↔ PC Commands__
+
+| Sr. No. | Transaction Type  | Direction   | Command Format               | Response Format                     | Description |
+|---------|-------------------|-------------|-------------------------------|-------------------------------------|-------------|
+| 1       | Card Verification | MCU → PC    | `#C:<RFID>$`                  | `@OK:ACTIVE:<Name>$`                | Valid card with account name |
+|         |                   |             |                               | `@ERR:BLOCK$`                       | Card is blocked |
+|         |                   |             |                               | `@ERR:INVALID$`                     | Card not registered |
+| **2**   | PIN Verification  | MCU → PC    | `#V:<RFID>:<PIN>$`            | `@OK:MATCHED$`                      | Correct PIN |
+|         |                   |             |                               | `@ERR:WRONG$`                       | Incorrect PIN |
+| **3**   | Withdrawal        | MCU → PC    | `#A:WTD:<RFID>:<Amount>$`     | `@OK:DONE$`                         | Withdrawal successful |
+|         |                   |             |                               | `@ERR:LOWBAL$`                      | Insufficient balance |
+|         |                   |             |                               | `@ERR:NEGAMT$`                      | Negative amount invalid |
+|         |                   |             |                               | `@ERR:MAXAMT$`                      | Exceeds ₹30,000 limit |
+| **4**   | Deposit           | MCU → PC    | `#A:DEP:<RFID>:<Amount>$`     | `@OK:DONE$`                         | Deposit successful |
+|         |                   |             |                               | `@ERR:NEGAMT$`                      | Negative amount invalid |
+|         |                   |             |                               | `@ERR:MAXAMT$`                      | Exceeds ₹30,000 limit |
+| **5**   | Balance Inquiry   | MCU → PC    | `#A:BAL:<RFID>$`              | `@OK:BAL=<Amount>$`                 | Returns current balance (e.g., `@OK:BAL=25000$`) |
+| **6**   | Mini-Statement    | MCU → PC    | `#A:MST:<RFID>:<TxNo>$`      | `@TXN:<Type>:<Date>:<Amount>$`      | Transaction details (type, date, amount) |
+|         |                   |             |                               | `@TXN:7$`                           | No more transactions to show |
+| **7**   | PIN Change        | MCU → PC    | `#A:PIN:<RFID>:<NewPIN>$`     | `@OK:DONE$`                         | PIN updated successfully |
+| **8**   | Card Blocking     | MCU → PC    | `#A:BLK:<RFID>$`              | `@OK:DONE$`                         | Card blocked (after 3 failed PIN attempts) |
+| **9**   | System            | MCU → PC    | `#X:LINEOK$`                  | `@X:LINEOK$`                        | Connection test (keep-alive) |
+| **10**  | Session End       | MCU → PC    | `#Q:SAVE$`                    | *(None)*                            | Graceful termination (no response expected) |
+
