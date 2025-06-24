@@ -252,18 +252,191 @@ ________________________________________________________________________________
 
 __FILES__
 
+![Screenshot 2025-06-18 095628](https://github.com/user-attachments/assets/d77a11a3-c8ca-439b-9064-d32b13ac9738)
+
+__Main Projects__
+
+1. _Code Uploading_
+
+![Screenshot from 2025-06-24 10-27-17](https://github.com/user-attachments/assets/3dcd07b5-72d7-484b-9fa8-3e6388f82534)
+
+2. _System Initialization_
+   
+![WhatsApp Image 2025-06-24 at 11 22 42_86859e1b](https://github.com/user-attachments/assets/97fdbd81-4cf6-44d3-ba47-b900aa024991)
+
+3. _Test without PC_
+
+![Screenshot from 2025-06-24 10-27-01](https://github.com/user-attachments/assets/409caf2d-8fdb-4a3c-bc55-73715a89cde1)
+
+4. _Admin (Bank side Infromation Fill)
+
+![Screenshot from 2025-06-24 10-16-30](https://github.com/user-attachments/assets/4861cc5f-69a3-4fd2-8953-a0174b20b38a)
 
 
-__DATA BASED__
+![Screenshot from 2025-06-24 10-19-16](https://github.com/user-attachments/assets/524c7cd9-b521-4461-ad1f-0e9e14e88ce8)
+
+5. _Card Authentication_
+
+a. Card Invalid 
+
+![IMG-20250624-WA0026](https://github.com/user-attachments/assets/42bc8ca6-ff6c-4328-a206-c07044a65805)
+
+b. Card Block
+
+![IMG-20250624-WA0020](https://github.com/user-attachments/assets/685eba24-11f1-4793-9b2f-ad5ba9b364cb)
+
+c. Valid Card 
+
+![IMG-20250624-WA0019](https://github.com/user-attachments/assets/1758c55c-9df7-4b12-bc9e-86a713f19b02)
 
 
+6. _Pin Varification_
 
-__PC AND MCU COMMUNICATIONS__
+a. Wrong Pin 
 
+![IMG-20250624-WA0022](https://github.com/user-attachments/assets/d582fb7a-bd8d-4c29-9830-3379b4733545)
+
+b. Correct or Matched Pin 
+
+![IMG-20250624-WA0021](https://github.com/user-attachments/assets/ba7d1919-b090-433e-8884-1ba66ecb8e28)
+
+7. _Menu_
+
+      1. Withdrawal
+
+![IMG-20250624-WA0018](https://github.com/user-attachments/assets/5a00e23a-28c6-47bf-8ce7-f05a4cb15f54)
+  
+      2. Deposit
+
+![IMG-20250624-WA0016](https://github.com/user-attachments/assets/beefa897-b053-49ba-9abf-4eddb24a6f07)
+
+      3. Balance Inquiry
+
+![IMG-20250624-WA0014](https://github.com/user-attachments/assets/65ca0f53-2b2f-4124-b0b8-bc44292a13f7)
+
+      4. Mini Statement
+
+![IMG-20250624-WA0017](https://github.com/user-attachments/assets/d3e1ac69-60ef-4146-83b2-15f1d807872b)
+
+      5. Pin change
+      6. Exit
+
+![IMG-20250624-WA0015](https://github.com/user-attachments/assets/6f36fda8-e39d-42b1-9a60-9587590b9577)
+
+
+7. _Withdrawal_
+
+a. Success
+
+![IMG-20250624-WA0012](https://github.com/user-attachments/assets/5c54433a-9ed4-413c-8616-98c04b744926)
+
+b. Low Balance
+
+![IMG-20250624-WA0013](https://github.com/user-attachments/assets/68f90179-6161-405d-97bd-59a5e0f49cff)
+
+c. Max Limit 
+
+![IMG-20250624-WA0011](https://github.com/user-attachments/assets/6df863dc-7f99-4abf-bfa6-9112e1230f37)
+
+
+8. _Deposit Successfully_
+
+![IMG-20250624-WA0029](https://github.com/user-attachments/assets/b128ba1e-d724-4a74-ae96-79d961e10a5d)
+
+9. _Balance Statements_
+
+![IMG-20250624-WA0010](https://github.com/user-attachments/assets/cf959c00-925a-40f9-ad61-9b0f6290bb82)
+
+10. _Mini Statement_
+
+![IMG-20250624-WA0006](https://github.com/user-attachments/assets/341a9fd3-d96a-490b-9f43-9ca3799bf3b8)
+
+![IMG-20250624-WA0007](https://github.com/user-attachments/assets/f4c90993-26f5-471a-b17d-41f802cae9d7)
+
+![IMG-20250624-WA0009](https://github.com/user-attachments/assets/abb06d8b-d96d-48f0-aee2-178ea454da25)
+
+11. _Pin Change_
+
+a. old pin 
+
+![IMG-20250624-WA0004](https://github.com/user-attachments/assets/2e27259e-ce7a-4d91-8810-d384c1ff68b1)
+
+b. New pin 
+
+
+![IMG-20250624-WA0002](https://github.com/user-attachments/assets/75f8771d-b291-4cae-828c-e13444e40e55)
+
+![IMG-20250624-WA0005](https://github.com/user-attachments/assets/b0625b97-39b0-4469-b683-406e2f1b83fd)
+
+c. Successfully change pin 
+
+![IMG-20250624-WA0008](https://github.com/user-attachments/assets/af6e3be1-da5d-4708-8e44-212cf694cfff)
+
+12. _Exit_
+
+
+![IMG-20250624-WA0003](https://github.com/user-attachments/assets/1a5fe901-0fcc-4193-b8ad-55c520285259)
 
 
 __MCU HARDWARE CONNECTIONS__
 
+# LPC2148 Interfacing Connections
+
+## LCD 16x2 ↔ LPC2148
+
+| LCD Pin | LPC2148 Pin | Description        |
+|---------|-------------|--------------------|
+| D0      | P1.16       | Data Line 0        |
+| D1      | P1.17       | Data Line 1        |
+| D2      | P1.18       | Data Line 2        |
+| D3      | P1.19       | Data Line 3        |
+| D4      | P1.20       | Data Line 4        |
+| D5      | P1.21       | Data Line 5        |
+| D6      | P1.22       | Data Line 6        |
+| D7      | P1.23       | Data Line 7        |
+| RS      | P0.16       | Register Select    |
+| RW      | P0.17       | Read/Write         |
+| EN      | P0.26       | Enable             |
+| VCC     | 5V          | Power Supply       |
+| GND     | GND         | Ground             |
+
+---
+
+## Keypad (4x4) ↔ LPC2148
+
+| Keypad Line | LPC2148 Pin | Description        |
+|-------------|-------------|--------------------|
+| R0          | P1.24       | Row 0              |
+| R1          | P1.25       | Row 1              |
+| R2          | P1.26       | Row 2              |
+| R3          | P1.27       | Row 3              |
+| C0          | P1.28       | Column 0           |
+| C1          | P1.29       | Column 1           |
+| C2          | P1.30       | Column 2           |
+| C3          | P1.31       | Column 3           |
+
+---
+
+## RFID Reader ↔ LPC2148
+
+| RFID Pin        | LPC2148 Pin | Description        |
+|------------------|-------------|--------------------|
+| TX (output)      | P0.9        | UART1 RX (Receive) |
+| VCC              | 5V          | Power Supply       |
+| GND              | GND         | Ground             |
+
+---
+
+## PC (via DB9) ↔ LPC2148
+
+| DB9 Pin | LPC2148 Pin | Description        |
+|---------|-------------|--------------------|
+| RX (Pin 2) | P0.0     | UART0 TX (to PC)   |
+| TX (Pin 3) | P0.1     | UART0 RX (from PC) |
+
+---
+
+> 📌 **Note**: Ensure proper voltage level conversion between LPC2148 (3.3V) and peripherals like PC (RS-232 uses ±12V) using MAX232 or level shifter where required.
 
 
 _____________________________________________________________________________________________________________________________________
