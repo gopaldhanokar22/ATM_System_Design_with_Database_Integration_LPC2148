@@ -247,7 +247,67 @@ __Error Handling & Security__
   - Timeouts prevent infinite hangs
 
 _________________________________________________________________________________________________________________________________
+__MCU HARDWARE CONNECTIONS__
 
+# LPC2148 Interfacing Connections
+
+## LCD 16x2 ↔ LPC2148
+
+| LCD Pin | LPC2148 Pin | Description        |
+|---------|-------------|--------------------|
+| D0      | P1.16       | Data Line 0        |
+| D1      | P1.17       | Data Line 1        |
+| D2      | P1.18       | Data Line 2        |
+| D3      | P1.19       | Data Line 3        |
+| D4      | P1.20       | Data Line 4        |
+| D5      | P1.21       | Data Line 5        |
+| D6      | P1.22       | Data Line 6        |
+| D7      | P1.23       | Data Line 7        |
+| RS      | P0.16       | Register Select    |
+| RW      | P0.17       | Read/Write         |
+| EN      | P0.26       | Enable             |
+| VCC     | 5V          | Power Supply       |
+| GND     | GND         | Ground             |
+
+---
+
+## Keypad (4x4) ↔ LPC2148
+
+| Keypad Line | LPC2148 Pin | Description        |
+|-------------|-------------|--------------------|
+| R0          | P1.24       | Row 0              |
+| R1          | P1.25       | Row 1              |
+| R2          | P1.26       | Row 2              |
+| R3          | P1.27       | Row 3              |
+| C0          | P1.28       | Column 0           |
+| C1          | P1.29       | Column 1           |
+| C2          | P1.30       | Column 2           |
+| C3          | P1.31       | Column 3           |
+
+---
+
+## RFID Reader ↔ LPC2148
+
+| RFID Pin        | LPC2148 Pin | Description        |
+|------------------|-------------|--------------------|
+| TX (output)      | P0.9        | UART1 RX (Receive) |
+| VCC              | 5V          | Power Supply       |
+| GND              | GND         | Ground             |
+
+---
+
+## PC (via DB9) ↔ LPC2148
+
+| DB9 Pin | LPC2148 Pin | Description        |
+|---------|-------------|--------------------|
+| RX (Pin 2) | P0.0     | UART0 TX (to PC)   |
+| TX (Pin 3) | P0.1     | UART0 RX (from PC) |
+
+---
+
+> 📌 **Note**: Ensure proper voltage level conversion between LPC2148 (3.3V) and peripherals like PC (RS-232 uses ±12V) using MAX232 or level shifter where required.
+
+___________________________________________________________________________________________________________________________________________________________________________________________
 # OUTPUTS: 
 
 __FILES__
@@ -376,67 +436,6 @@ c. Successfully change pin
 
 
 ![IMG-20250624-WA0003](https://github.com/user-attachments/assets/1a5fe901-0fcc-4193-b8ad-55c520285259)
-
-
-__MCU HARDWARE CONNECTIONS__
-
-# LPC2148 Interfacing Connections
-
-## LCD 16x2 ↔ LPC2148
-
-| LCD Pin | LPC2148 Pin | Description        |
-|---------|-------------|--------------------|
-| D0      | P1.16       | Data Line 0        |
-| D1      | P1.17       | Data Line 1        |
-| D2      | P1.18       | Data Line 2        |
-| D3      | P1.19       | Data Line 3        |
-| D4      | P1.20       | Data Line 4        |
-| D5      | P1.21       | Data Line 5        |
-| D6      | P1.22       | Data Line 6        |
-| D7      | P1.23       | Data Line 7        |
-| RS      | P0.16       | Register Select    |
-| RW      | P0.17       | Read/Write         |
-| EN      | P0.26       | Enable             |
-| VCC     | 5V          | Power Supply       |
-| GND     | GND         | Ground             |
-
----
-
-## Keypad (4x4) ↔ LPC2148
-
-| Keypad Line | LPC2148 Pin | Description        |
-|-------------|-------------|--------------------|
-| R0          | P1.24       | Row 0              |
-| R1          | P1.25       | Row 1              |
-| R2          | P1.26       | Row 2              |
-| R3          | P1.27       | Row 3              |
-| C0          | P1.28       | Column 0           |
-| C1          | P1.29       | Column 1           |
-| C2          | P1.30       | Column 2           |
-| C3          | P1.31       | Column 3           |
-
----
-
-## RFID Reader ↔ LPC2148
-
-| RFID Pin        | LPC2148 Pin | Description        |
-|------------------|-------------|--------------------|
-| TX (output)      | P0.9        | UART1 RX (Receive) |
-| VCC              | 5V          | Power Supply       |
-| GND              | GND         | Ground             |
-
----
-
-## PC (via DB9) ↔ LPC2148
-
-| DB9 Pin | LPC2148 Pin | Description        |
-|---------|-------------|--------------------|
-| RX (Pin 2) | P0.0     | UART0 TX (to PC)   |
-| TX (Pin 3) | P0.1     | UART0 RX (from PC) |
-
----
-
-> 📌 **Note**: Ensure proper voltage level conversion between LPC2148 (3.3V) and peripherals like PC (RS-232 uses ±12V) using MAX232 or level shifter where required.
 
 
 _____________________________________________________________________________________________________________________________________
